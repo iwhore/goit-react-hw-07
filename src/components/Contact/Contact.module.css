@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.button {
+    height: 20px;
+    align-self: center;
+}
+
+p{
+    margin: 0;
+}
