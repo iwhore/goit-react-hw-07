@@ -2,19 +2,17 @@ import * as Yup from "yup";
 import { useId } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 import clsx from "clsx";
 import css from "./ContactForm.module.css"
-
-
 
 export default function ContactForm() {
   const textId = useId();
   const telId = useId();
   const dispatch = useDispatch();
 
-  const handleSubmite = (value, actions) => {
-    dispatch(addContact(value.name, value.number));
+  const handleSubmite = (values, actions) => {
+    dispatch(addContact(values));
     actions.resetForm();
   };
 
@@ -31,31 +29,31 @@ export default function ContactForm() {
     }),
   });
 
-    return (
+  return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmite}
-      validationSchema={FeedbackSchema}>
-        
-    <Form className={css.container}>
+      validationSchema={FeedbackSchema}
+    >
+      <Form className={css.container}>
         <label className={css.label} htmlFor={textId}>
           Name
         </label>
-        <Field name="name" type="text" id={textId} />
+        <Field className={css.input} name="name" type="text" id={textId} />
         <ErrorMessage className={css.error} name="name" component="span" />
 
-        <label className={clsx} htmlFor={telId}>
+        <label className={clsx(css.label, css.margin)} htmlFor={telId}>
           Number
         </label>
-        <Field name="number" type="tel" id={telId} />
-        <ErrorMessage name="number" component="span" />
+        <Field className={css.input} name="number" type="tel" id={telId} />
+        <ErrorMessage className={css.error} name="number" component="span" />
 
-        <button className={css.button} type="submit">
+        <button className={css.btn} type="submit">
           Add contact
         </button>
       </Form>
     </Formik>
-  ); 
+  );
 }
 
 
